@@ -14,14 +14,13 @@ public class GDXGame extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Texture img;
         private World theWorld;
-	
+	private Music music;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("mmo.jpg");
+		
                 theWorld = new World();
-                Music music = Gdx.audio.newMusic(Gdx.files.getFileHandle("music.mp3", FileType.Internal));
-
+                music = Gdx.audio.newMusic(Gdx.files.getFileHandle("music.mp3", FileType.Internal));
                 music.setVolume(0.5f);
                 music.play();
                 music.setLooping(true);
@@ -31,13 +30,14 @@ public class GDXGame extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClearColor(0.5f, 0.6f, 0.75f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                /*if (Gdx.input.isKeyPressed(Keys.SPACE)) {
-                    System.out.println("Input occurred at x=" + Gdx.input.getX() + ", y=" + Gdx.input.getY()); 
+                
+                //pause (ou pas) la musique 
+                if (Gdx.input.isKeyPressed(Keys.P)) {
+                    music.pause();
                 }
-
-                batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();*/
+                if (Gdx.input.isKeyPressed(Keys.O)){
+                    music.play();
+                }
                 theWorld.draw();
                 theWorld.move(1, 1);
 	}
